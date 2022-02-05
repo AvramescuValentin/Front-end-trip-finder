@@ -8,9 +8,17 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import DateAdapter from '@mui/lab/AdapterMoment';
+import MobileDatePicker from '@mui/lab/MobileDatePicker';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 function Copyright(props) {
@@ -29,6 +37,18 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
+
+    const [valueTime, setValueTime] = React.useState(new Date('2014-08-18T21:11:54'));
+    const [valueGender, setValueGender] = React.useState(0);
+
+    const handleChangeTime = (newValue) => {
+        setValueTime(newValue);
+    };
+
+    const handleChangeGender = (event) => {
+        setValueGender(event.target.value);
+    };
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -110,6 +130,34 @@ export default function SignUp() {
                                     id="password"
                                     autoComplete="new-password"
                                 />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label">Gender</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={valueGender}
+                                        label="Gender"
+                                        onChange={handleChangeGender}
+                                    >
+                                        <MenuItem value={1}>Male</MenuItem>
+                                        <MenuItem value={2}>Female</MenuItem>
+                                        <MenuItem value={3}>Other</MenuItem>
+                                        <MenuItem value={4}>Not specify</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                            <Grid item item xs={12} sm={6}>
+                                <LocalizationProvider dateAdapter={DateAdapter}>
+                                    <MobileDatePicker
+                                        label="Birthday date"
+                                        inputFormat="DD/MM/yyyy"
+                                        value={valueTime}
+                                        onChange={handleChangeTime}
+                                        renderInput={(params) => <TextField {...params} />}
+                                    />
+                                </LocalizationProvider>
                             </Grid>
                             <Grid item xs={12}>
                                 <FormControlLabel
