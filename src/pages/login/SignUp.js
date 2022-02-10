@@ -20,6 +20,7 @@ import MobileDatePicker from '@mui/lab/MobileDatePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { makeRequest } from '../../util/requests';
 
 function Copyright(props) {
     return (
@@ -52,11 +53,21 @@ export default function SignUp() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        // eslint-disable-next-line no-console
-        console.log({
+        const registrationData = {
+            firstName: data.get('firstName'),
+            lastName: data.get('lastName'),
+            username: data.get('username'),
             email: data.get('email'),
             password: data.get('password'),
-        });
+            gender: data.get('gender'),
+            dateOfBirth: valueTime
+        }
+        makeRequest(registrationData);
+        // eslint-disable-next-line no-console
+        // console.log({
+        //     email: data.get('email'),
+        //     password: data.get('password'),
+        // });
     };
 
     return (
@@ -124,6 +135,16 @@ export default function SignUp() {
                                 <TextField
                                     required
                                     fullWidth
+                                    id="phone"
+                                    label="Phone"
+                                    name="phone"
+                                    autoComplete="phone"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
                                     name="password"
                                     label="Password"
                                     type="password"
@@ -135,6 +156,7 @@ export default function SignUp() {
                                 <FormControl fullWidth>
                                     <InputLabel id="demo-simple-select-label">Gender</InputLabel>
                                     <Select
+                                        name="gender"
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
                                         value={valueGender}
@@ -151,6 +173,7 @@ export default function SignUp() {
                             <Grid item item xs={12} sm={6}>
                                 <LocalizationProvider dateAdapter={DateAdapter}>
                                     <MobileDatePicker
+                                        name="dateOfBirth"
                                         label="Birthday date"
                                         inputFormat="DD/MM/yyyy"
                                         value={valueTime}

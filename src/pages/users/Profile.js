@@ -34,7 +34,11 @@ const GetProfilePictureSize = () => {
 }
 
 const Profile = () => {
+    const [valueGender, setValueGender] = React.useState(0);
 
+    const handleChangeGender = (event) => {
+        setValueGender(event.target.value);
+    };
 
 
 
@@ -129,11 +133,12 @@ const Profile = () => {
                         <FormControl fullWidth>
                             <InputLabel id="demo-simple-select-label">Gender</InputLabel>
                             <Select
+                                name="gender"
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={1}
+                                value={valueGender}
                                 label="Gender"
-                            // onChange={handleChange}
+                                onChange={handleChangeGender}
                             >
                                 <MenuItem value={1}>Male</MenuItem>
                                 <MenuItem value={2}>Female</MenuItem>
