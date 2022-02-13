@@ -4,6 +4,7 @@ import Profile from './pages/users/Profile';
 import TripPage from './pages/trips/TripPage';
 import SignIn from './pages/login/SignIn';
 import SignUp from './pages/login/SignUp';
+import TripSearch from './pages/trips/TripSearch';
 
 
 
@@ -25,7 +26,7 @@ const App = () => {
           <TripPage />
         </Route>
         <Route path='/tripSearch' exact>
-          <TripPage />
+          <TripSearch />
         </Route>
         <Redirect to="/" />
       </Switch>

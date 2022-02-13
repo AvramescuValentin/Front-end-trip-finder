@@ -1,0 +1,9 @@
+.cardContainer {
+    min-height: 200px;
+}
+
+.card_button_container{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
