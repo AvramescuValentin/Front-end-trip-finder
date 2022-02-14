@@ -140,7 +140,7 @@ export default function Navbar(props) {
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
                         Mini variant drawer
-          </Typography>
+                    </Typography>
                 </Toolbar>
             </AppBar>
             <Drawer variant="permanent" open={open}>
@@ -169,6 +169,32 @@ export default function Navbar(props) {
                     </NavLink>
 
                     <NavLink to="/tripSearch" style={isActive => ({
+                        textDecoration: 'none',
+                        color: isActive ? "blue" : "grey"
+                    })}>
+                        <ListItem button key={"item"}>
+
+                            <ListItemIcon>
+                                <SearchOutlinedIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={"Trip Search"} />
+                        </ListItem>
+                    </NavLink>
+
+                    <NavLink to="/signIn" style={isActive => ({
+                        textDecoration: 'none',
+                        color: isActive ? "blue" : "grey"
+                    })}>
+                        <ListItem button key={"item"}>
+
+                            <ListItemIcon>
+                                <SearchOutlinedIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={"Trip Search"} />
+                        </ListItem>
+                    </NavLink>
+
+                    <NavLink to="/signUp" style={isActive => ({
                         textDecoration: 'none',
                         color: isActive ? "blue" : "grey"
                     })}>
