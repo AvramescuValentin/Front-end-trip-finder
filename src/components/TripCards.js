@@ -10,6 +10,7 @@ import BasicModal from './Modal';
 
 import './../style/TripCards.css'
 
+
 const TripCards = (props) => {
     const startDate = new Date(props.startDate).toDateString();
     const endDate = new Date(props.endDate).toDateString();

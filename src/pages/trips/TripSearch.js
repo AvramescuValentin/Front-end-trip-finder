@@ -97,6 +97,8 @@ const mockData = [{
 
 export default function TripSearch() {
 
+    
+
     return (
         <ThemeProvider theme={theme}>
             <Container component="main">
