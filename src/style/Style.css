@@ -1,3 +1,8 @@
 .navbar__link__decoration {
     text-decoration: none;
 }
+
+.search__bar {
+    border: solid;
+    border-color: red;
+}

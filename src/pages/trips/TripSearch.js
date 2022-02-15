@@ -13,6 +13,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TripCards from '../../components/TripCards';
+import SearchBar from '../../components/SearchBar';
+import './../../style/Style.css'
 
 
 
@@ -97,12 +99,15 @@ const mockData = [{
 
 export default function TripSearch() {
 
-    
+
 
     return (
         <ThemeProvider theme={theme}>
             <Container component="main">
-                <Grid container spacing={3}>
+                <Grid container spacing={3} className={'search__bar'}>
+                    <Grid xs={3} className={'search__bar'}></Grid>
+                    <SearchBar />
+                    <Grid xs={3} className={'search__bar'}></Grid>
                     {mockData.map(card => {
                         return (
                             <Grid item xs={12} sm={6} md={6} lg={4} xl={4}>
@@ -121,6 +126,6 @@ export default function TripSearch() {
                 </Grid>
                 <Copyright sx={{ mt: 8, mb: 4 }} />
             </Container>
-        </ThemeProvider>
+        </ThemeProvider >
     );
 }
