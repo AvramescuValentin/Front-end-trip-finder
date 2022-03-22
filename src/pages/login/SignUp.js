@@ -1,11 +1,11 @@
 import * as React from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
@@ -145,6 +145,26 @@ export default function SignUp() {
                                 <TextField
                                     required
                                     fullWidth
+                                    id="city"
+                                    label="City"
+                                    name="city"
+                                    autoComplete="city"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    id="country"
+                                    label="Country"
+                                    name="country"
+                                    autoComplete="country"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
                                     name="password"
                                     label="Password"
                                     type="password"
@@ -170,7 +190,7 @@ export default function SignUp() {
                                     </Select>
                                 </FormControl>
                             </Grid>
-                            <Grid item item xs={12} sm={6}>
+                            <Grid item xs={12} sm={6}>
                                 <LocalizationProvider dateAdapter={DateAdapter}>
                                     <MobileDatePicker
                                         name="dateOfBirth"
@@ -199,9 +219,9 @@ export default function SignUp() {
                         </Button>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <NavLink to="/signIn" variant="body2">
                                     Already have an account? Sign in
-                                </Link>
+                                </NavLink>
                             </Grid>
                         </Grid>
                     </Box>
