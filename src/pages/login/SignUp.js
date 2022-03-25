@@ -50,7 +50,7 @@ export default function SignUp() {
         setValueGender(event.target.value);
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const registrationData = {
@@ -58,16 +58,17 @@ export default function SignUp() {
             lastName: data.get('lastName'),
             username: data.get('username'),
             email: data.get('email'),
+            phone: data.get('phone'),
+            location: {
+                location: data.get('city'),
+                country: data.get('country')
+            },
             password: data.get('password'),
             gender: data.get('gender'),
             dateOfBirth: valueTime
         }
-        makeRequest(registrationData);
-        // eslint-disable-next-line no-console
-        // console.log({
-        //     email: data.get('email'),
-        //     password: data.get('password'),
-        // });
+        const result = await makeRequest('POST', 'http://localhost:5000/api/user/signup', registrationData);
+        console.log(result);
     };
 
     return (
@@ -183,10 +184,10 @@ export default function SignUp() {
                                         label="Gender"
                                         onChange={handleChangeGender}
                                     >
-                                        <MenuItem value={1}>Male</MenuItem>
-                                        <MenuItem value={2}>Female</MenuItem>
-                                        <MenuItem value={3}>Other</MenuItem>
-                                        <MenuItem value={4}>Not specify</MenuItem>
+                                        <MenuItem value={'male'}>Male</MenuItem>
+                                        <MenuItem value={'female'}>Female</MenuItem>
+                                        <MenuItem value={'other'}>Other</MenuItem>
+                                        <MenuItem value={'not specified'}>Not specify</MenuItem>
                                     </Select>
                                 </FormControl>
                             </Grid>
