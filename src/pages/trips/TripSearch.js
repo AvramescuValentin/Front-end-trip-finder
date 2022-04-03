@@ -15,21 +15,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TripCards from '../../components/TripCards';
 import SearchBar from '../../components/SearchBar';
 import './../../style/Style.css'
-
-
-
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import Copyright from '../../components/Copyright';
+import FloatingButton from '../../components/FloatingButton';
 
 const theme = createTheme();
 
@@ -104,10 +91,10 @@ export default function TripSearch() {
     return (
         <ThemeProvider theme={theme}>
             <Container component="main">
-                <Grid container spacing={3} className={'search__bar'}>
-                    <Grid xs={3} className={'search__bar'}></Grid>
+                <Grid container spacing={3}>
+                    <Grid xs={3}></Grid>
                     <SearchBar />
-                    <Grid xs={3} className={'search__bar'}></Grid>
+                    <Grid xs={3}></Grid>
                     {mockData.map(card => {
                         return (
                             <Grid item xs={12} sm={6} md={6} lg={4} xl={4}>
@@ -124,7 +111,7 @@ export default function TripSearch() {
                         )
                     })}
                 </Grid>
-                <Copyright sx={{ mt: 8, mb: 4 }} />
+                <FloatingButton />
             </Container>
         </ThemeProvider >
     );

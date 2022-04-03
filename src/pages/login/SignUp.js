@@ -50,9 +50,15 @@ export default function SignUp() {
         setValueGender(event.target.value);
     };
 
+    const createArrayOfTags = tags => {
+        const arrayOfTags = tags.replace(/ /g, '').split('#').shift();
+        return arrayOfTags;
+    }
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
+        const tags = createArrayOfTags(data.get('tags'));
         const registrationData = {
             firstName: data.get('firstName'),
             lastName: data.get('lastName'),
@@ -65,7 +71,8 @@ export default function SignUp() {
             },
             password: data.get('password'),
             gender: data.get('gender'),
-            dateOfBirth: valueTime
+            dateOfBirth: valueTime,
+            tags: tags
         }
         const result = await makeRequest('POST', 'http://localhost:5000/api/user/signup', registrationData);
         console.log(result);
@@ -99,7 +106,6 @@ export default function SignUp() {
                                     fullWidth
                                     id="firstName"
                                     label="First Name"
-                                    autoFocus
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -202,6 +208,17 @@ export default function SignUp() {
                                         renderInput={(params) => <TextField {...params} />}
                                     />
                                 </LocalizationProvider>
+                            </Grid>
+                            <Grid item sm={12}>
+                                <TextField
+                                    autoComplete="tags"
+                                    name="tags"
+                                    fullWidth
+                                    id="tags"
+                                    label="Tags"
+                                    multiline
+                                    rows={4}
+                                />
                             </Grid>
                             <Grid item xs={12}>
                                 <FormControlLabel

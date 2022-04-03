@@ -6,7 +6,7 @@ import SignIn from './pages/login/SignIn';
 import SignUp from './pages/login/SignUp';
 import TripSearch from './pages/trips/TripSearch';
 import Navbar from './components/Navbar';
-
+import Copyright from './components/Copyright';
 
 
 const App = () => {
@@ -33,6 +33,7 @@ const App = () => {
           <Redirect to="/" />
         </Switch>
       </Navbar>
+      <Copyright sx={{ mt: 8, mb: 4 }} />
     </Router>
 
 
