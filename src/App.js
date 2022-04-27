@@ -6,37 +6,70 @@ import SignIn from './pages/login/SignIn';
 import SignUp from './pages/login/SignUp';
 import TripSearch from './pages/trips/TripSearch';
 import Navbar from './components/Navbar';
+import MyTrips from './pages/trips/MyTrips';
+import NewTrip from './pages/trips/NewTrip';
 import Copyright from './components/Copyright';
+import { AuthContext } from './util/auth-context';
+import { useAuth } from './util/auth-hook';
 
 
 const App = () => {
-  return (
+  const { token, login, logout, userId } = useAuth();
 
-    <Router>
+  let routes;
+
+  if (token) {
+    routes = (
       <Navbar>
         <Switch>
-          <Route path='/signIn' exact>
-            <SignIn />
-          </Route>
-          <Route path='/signUp' exact>
-            <SignUp />
-          </Route>
           <Route path='/profile' exact>
             <Profile />
           </Route>
-          <Route path='/tripPage' exact>
+          <Route path='/myTrips' exact>
+            <MyTrips />
+          </Route>
+          <Route path='/tripPage/:id'>
             <TripPage />
           </Route>
           <Route path='/tripSearch' exact>
             <TripSearch />
           </Route>
-          <Redirect to="/" />
+          <Route path='/newTrip' exact>
+            <NewTrip />
+          </Route>
+          <Redirect to='/tripSearch' />
         </Switch>
       </Navbar>
-      <Copyright sx={{ mt: 8, mb: 4 }} />
-    </Router>
+    )
 
+  } else {
+    routes = (
+      <Switch>
+        <Route path="/signIn" exact>
+          <SignIn />
+        </Route>
+        <Route path="/signUp" exact>
+          <SignUp />
+        </Route>
+        <Redirect to='/signIn' />
+      </Switch>
+    );
+  }
 
+  return (
+    <AuthContext.Provider
+      value={{
+        isLoggedIn: !!token,
+        token: token,
+        userId: userId,
+        login: login,
+        logout: logout
+      }}
+    >
+      <Router>
+        {routes}
+      </Router>
+    </AuthContext.Provider>
   );
 }
 

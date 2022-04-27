@@ -16,8 +16,10 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import BookmarksOutlinedIcon from '@mui/icons-material/BookmarksOutlined';
 // ICONS 
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
@@ -159,11 +161,9 @@ export default function Navbar(props) {
                         })}
                     >
                         <ListItem button key={"item"}>
-
                             <ListItemIcon>
                                 <AccountCircleOutlinedIcon />
                             </ListItemIcon>
-
                             <ListItemText primary={"Profile"} />
                         </ListItem>
                     </NavLink>
@@ -173,7 +173,6 @@ export default function Navbar(props) {
                         color: isActive ? "blue" : "grey"
                     })}>
                         <ListItem button key={"item"}>
-
                             <ListItemIcon>
                                 <SearchOutlinedIcon />
                             </ListItemIcon>
@@ -181,31 +180,30 @@ export default function Navbar(props) {
                         </ListItem>
                     </NavLink>
 
-                    <NavLink to="/signIn" style={isActive => ({
+                    <NavLink to="/myTrips" style={isActive => ({
                         textDecoration: 'none',
                         color: isActive ? "blue" : "grey"
                     })}>
                         <ListItem button key={"item"}>
-
                             <ListItemIcon>
-                                <SearchOutlinedIcon />
+                                <BookmarksOutlinedIcon />
                             </ListItemIcon>
-                            <ListItemText primary={"Trip Search"} />
+                            <ListItemText primary={"My Trips"} />
                         </ListItem>
                     </NavLink>
 
-                    <NavLink to="/signUp" style={isActive => ({
+                    <NavLink to="/newTrip" style={isActive => ({
                         textDecoration: 'none',
                         color: isActive ? "blue" : "grey"
                     })}>
                         <ListItem button key={"item"}>
-
                             <ListItemIcon>
-                                <SearchOutlinedIcon />
+                                <AddCircleOutlineRoundedIcon />
                             </ListItemIcon>
-                            <ListItemText primary={"Trip Search"} />
+                            <ListItemText primary={"New Trip"} />
                         </ListItem>
                     </NavLink>
+
                 </List>
             </Drawer >
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>

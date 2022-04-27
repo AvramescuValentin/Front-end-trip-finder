@@ -1,5 +1,9 @@
-import * as React from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+
+import Backdrop from '@mui/material/Backdrop';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,15 +16,20 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import DateAdapter from '@mui/lab/AdapterMoment';
-import MobileDatePicker from '@mui/lab/MobileDatePicker';
+import CircularProgress from '@mui/material/CircularProgress';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import MobileDatePicker from '@mui/lab/MobileDatePicker';
+import DateAdapter from '@mui/lab/AdapterMoment';
 
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { AuthContext } from './../../util/auth-context';
+import { useHttpClient } from './../../util/http-hook';
 import { makeRequest } from '../../util/requests';
+
+
+
 
 function Copyright(props) {
     return (
@@ -38,6 +47,8 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
+    const auth = useContext(AuthContext);
+    const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
     const [valueTime, setValueTime] = React.useState(new Date('2014-08-18T21:11:54'));
     const [valueGender, setValueGender] = React.useState(0);
@@ -74,13 +85,29 @@ export default function SignUp() {
             dateOfBirth: valueTime,
             tags: tags
         }
-        const result = await makeRequest('POST', 'http://localhost:5000/api/user/signup', registrationData);
-        console.log(result);
+        try {
+            const responseData = await sendRequest(
+                'http://localhost:5000/api/user/signup',
+                'POST',
+                JSON.stringify(registrationData),
+                {
+                    'Content-Type': 'application/json'
+                }
+            );
+            auth.login(responseData.userId, responseData.token);
+        } catch (err) { }
     };
 
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
+                <Backdrop
+                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                    open={isLoading}
+
+                >
+                    <CircularProgress color="inherit" />
+                </Backdrop>
                 <CssBaseline />
                 <Box
                     sx={{
@@ -226,6 +253,16 @@ export default function SignUp() {
                                     label="I want to receive inspiration, marketing promotions and updates via email."
                                 />
                             </Grid>
+                            <Button
+                                variant="contained"
+                                component="label"
+                            >
+                                Upload File
+                                <input
+                                    type="file"
+                                    hidden
+                                />
+                            </Button>
                         </Grid>
                         <Button
                             type="submit"

@@ -1,5 +1,7 @@
-import * as React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link, NavLink, useHistory } from 'react-router-dom';
+
+import Backdrop from '@mui/material/Backdrop';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -8,40 +10,53 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CircularProgress from '@mui/material/CircularProgress';
 
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+
+
+import { AuthContext } from './../../util/auth-context';
+import { useHttpClient } from './../../util/http-hook';
+import Copyright from '../../components/Copyright';
 
 const theme = createTheme();
 
 export default function SignIn() {
-    const handleSubmit = (event) => {
+    const auth = useContext(AuthContext);
+    const { isLoading, error, sendRequest, clearError } = useHttpClient();
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        // eslint-disable-next-line no-console
-        console.log({
+        const loginData = {
             email: data.get('email'),
             password: data.get('password'),
-        });
+        }
+        try {
+            const responseData = await sendRequest(
+                'http://localhost:5000/api/user/login',
+                'POST',
+                JSON.stringify(loginData),
+                {
+                    'Content-Type': 'application/json'
+                }
+            );
+            auth.login(responseData.userId, responseData.token);
+        } catch (err) { }
     };
 
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
+                <Backdrop
+                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                    open={isLoading}
+                >
+                    <CircularProgress color="inherit" />
+                </Backdrop>
                 <CssBaseline />
                 <Box
                     sx={{
@@ -91,14 +106,10 @@ export default function SignIn() {
                             Sign In
                         </Button>
                         <Grid container>
-                            <Grid item xs>
-                                <Link href="#" variant="body2">
-                                    Forgot password?
-                                </Link>
-                            </Grid>
                             <Grid item>
-                                <NavLink to="/singUp" variant="body2">
-                                    {"Don't have an account? Sign Up"}
+                                <NavLink to="/signUp" variant="body2">
+                                    <Typography>{"Don't have an account? Sign Up"}</Typography>
+                                    {/* {"Don't have an account? Sign Up"} */}
                                 </NavLink>
                             </Grid>
                         </Grid>
@@ -106,6 +117,6 @@ export default function SignIn() {
                 </Box>
                 <Copyright sx={{ mt: 8, mb: 4 }} />
             </Container>
-        </ThemeProvider>
+        </ThemeProvider >
     );
 }

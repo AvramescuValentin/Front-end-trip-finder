@@ -6,3 +6,15 @@
     border: solid;
     border-color: red;
 }
+
+#floating__button {
+    position: fixed !important;
+    bottom: 5%;
+    right: 5%;
+    color: white;
+    background-color: #2e7d32;
+}
+
+#floating__button:hover {
+    background-color: #1e5c22;
+}

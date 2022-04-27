@@ -17,6 +17,7 @@ import SearchBar from '../../components/SearchBar';
 import './../../style/Style.css'
 import Copyright from '../../components/Copyright';
 import FloatingButton from '../../components/FloatingButton';
+import { ClassNames } from '@emotion/react';
 
 const theme = createTheme();
 
@@ -111,7 +112,7 @@ export default function TripSearch() {
                         )
                     })}
                 </Grid>
-                <FloatingButton />
+                <FloatingButton className='floating__button' />
             </Container>
         </ThemeProvider >
     );
