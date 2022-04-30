@@ -27,6 +27,8 @@ import DateAdapter from '@mui/lab/AdapterMoment';
 import { AuthContext } from './../../util/auth-context';
 import { useHttpClient } from './../../util/http-hook';
 import { makeRequest } from '../../util/requests';
+import UploadImage from '../../components/UploadImage';
+
 
 
 
@@ -52,6 +54,25 @@ export default function SignUp() {
 
     const [valueTime, setValueTime] = React.useState(new Date('2014-08-18T21:11:54'));
     const [valueGender, setValueGender] = React.useState(0);
+    const [fileInputState, setFileInputState] = useState('');
+    const [previewSource, setPreviewSource] = useState('');
+    const [selectedFile, setSelectedFile] = useState();
+    const [successMsg, setSuccessMsg] = useState('');
+    const [errMsg, setErrMsg] = useState('');
+    const handleFileInputChange = (e) => {
+        const file = e.target.files[0];
+        previewFile(file);
+        setSelectedFile(file);
+        setFileInputState(e.target.value);
+    };
+
+    const previewFile = (file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            setPreviewSource(reader.result);
+        };
+    };
 
     const handleChangeTime = (newValue) => {
         setValueTime(newValue);
@@ -62,12 +83,62 @@ export default function SignUp() {
     };
 
     const createArrayOfTags = tags => {
-        const arrayOfTags = tags.replace(/ /g, '').split('#').shift();
+        const arrayOfTags = tags.replace(/ /g, '').split('#');
+        arrayOfTags.shift();
         return arrayOfTags;
+    }
+
+    const getImage = async () => {
+        if (!selectedFile) return null;
+        else {
+            const reader = new FileReader();
+            await reader.readAsDataURL(selectedFile);
+            reader.onloadend = async () => {
+                console.log(reader.result)
+                // JSON.stringify(reader.result);
+                console.log("return");
+                const image = await JSON.stringify({ data: reader.result })
+                return image;
+            };
+            reader.onerror = () => {
+                console.error('AHHHHHHHH!!');
+                setErrMsg('something went wrong!');
+            };
+        }
+    }
+
+    const addImage = (registrationData) => {
+        if (!selectedFile) return;
+        const reader = new FileReader();
+        reader.readAsDataURL(selectedFile);
+        reader.onloadend = () => {
+            registrationData.image = reader.result;
+            registerUser(registrationData);
+        };
+        reader.onerror = () => {
+            console.error('AHHHHHHHH!!');
+            setErrMsg('something went wrong!');
+        };
+    }
+
+    const registerUser = async (registrationData) => {
+        console.log(registrationData.image)
+        try {
+            const responseData = await sendRequest(
+                'http://localhost:5000/api/user/signup',
+                'POST',
+                JSON.stringify(registrationData),
+                {
+                    'Content-Type': 'application/json'
+                }
+            );
+            auth.login(responseData.userId, responseData.token);
+        } catch (err) { }
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        console.log(event.currentTarget);
         const data = new FormData(event.currentTarget);
         const tags = createArrayOfTags(data.get('tags'));
         const registrationData = {
@@ -82,20 +153,11 @@ export default function SignUp() {
             },
             password: data.get('password'),
             gender: data.get('gender'),
-            dateOfBirth: valueTime,
-            tags: tags
+            dateOfBirth: valueTime.toISOString(),
+            tags: tags,
+            image: ''
         }
-        try {
-            const responseData = await sendRequest(
-                'http://localhost:5000/api/user/signup',
-                'POST',
-                JSON.stringify(registrationData),
-                {
-                    'Content-Type': 'application/json'
-                }
-            );
-            auth.login(responseData.userId, responseData.token);
-        } catch (err) { }
+        addImage(registrationData);
     };
 
     return (
@@ -253,17 +315,23 @@ export default function SignUp() {
                                     label="I want to receive inspiration, marketing promotions and updates via email."
                                 />
                             </Grid>
-                            <Button
-                                variant="contained"
-                                component="label"
-                            >
-                                Upload File
-                                <input
-                                    type="file"
-                                    hidden
+                            <input
+                                id="fileInput"
+                                type="file"
+                                name="image"
+                                onChange={handleFileInputChange}
+                                value={fileInputState}
+                                className="form-input"
+                            />
+                            {previewSource && (
+                                <img
+                                    src={previewSource}
+                                    alt="chosen"
+                                    style={{ height: '300px' }}
                                 />
-                            </Button>
+                            )}
                         </Grid>
+
                         <Button
                             type="submit"
                             fullWidth
@@ -272,14 +340,15 @@ export default function SignUp() {
                         >
                             Sign Up
                         </Button>
-                        <Grid container justifyContent="flex-end">
-                            <Grid item>
-                                <NavLink to="/signIn" variant="body2">
-                                    Already have an account? Sign in
-                                </NavLink>
-                            </Grid>
-                        </Grid>
                     </Box>
+                    <Grid container justifyContent="flex-end">
+                        <Grid item>
+                            <NavLink to="/signIn" variant="body2">
+                                Already have an account? Sign in
+                            </NavLink>
+                        </Grid>
+                    </Grid>
+
                 </Box>
                 <Copyright sx={{ mt: 5 }} />
             </Container>
