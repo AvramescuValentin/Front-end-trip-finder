@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -19,7 +19,9 @@ import ListItemText from '@mui/material/ListItemText';
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import LogoutIcon from '@mui/icons-material/Logout';
 import BookmarksOutlinedIcon from '@mui/icons-material/BookmarksOutlined';
+import { AuthContext } from './../util/auth-context';
 // ICONS 
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
@@ -112,6 +114,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 export default function Navbar(props) {
+    const auth = useContext(AuthContext);
+
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
@@ -201,6 +205,18 @@ export default function Navbar(props) {
                                 <AddCircleOutlineRoundedIcon />
                             </ListItemIcon>
                             <ListItemText primary={"New Trip"} />
+                        </ListItem>
+                    </NavLink>
+
+                    <NavLink to="/profile" style={isActive => ({
+                        textDecoration: 'none',
+                        color: isActive ? "red" : "red"
+                    })}>
+                        <ListItem onClick={auth.logout} button key={"item"}>
+                            <ListItemIcon>
+                                <LogoutIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={"Logout"} />
                         </ListItem>
                     </NavLink>
 

@@ -19,6 +19,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import CircularProgress from '@mui/material/CircularProgress';
+import { Divider } from '@mui/material';
+
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import MobileDatePicker from '@mui/lab/MobileDatePicker';
@@ -28,6 +30,7 @@ import { AuthContext } from './../../util/auth-context';
 import { useHttpClient } from './../../util/http-hook';
 import { makeRequest } from '../../util/requests';
 import UploadImage from '../../components/UploadImage';
+import { reduce_image_file_size } from "./../../util/compressImage";
 
 
 
@@ -122,6 +125,9 @@ export default function SignUp() {
     }
 
     const registerUser = async (registrationData) => {
+        console.log(registrationData.image)
+        const resizedImage = await reduce_image_file_size(registrationData.image);
+        registrationData.image = resizedImage;
         console.log(registrationData.image)
         try {
             const responseData = await sendRequest(
@@ -309,27 +315,36 @@ export default function SignUp() {
                                     rows={4}
                                 />
                             </Grid>
-                            <Grid item xs={12}>
-                                <FormControlLabel
-                                    control={<Checkbox value="allowExtraEmails" color="primary" />}
-                                    label="I want to receive inspiration, marketing promotions and updates via email."
-                                />
+                            <Grid item sm={12}>
+                                <Button
+                                    variant="contained"
+                                    component="label"
+                                >
+                                    Upload Image
+                                    <input
+                                        id="fileInput"
+                                        type="file"
+                                        name="image"
+                                        onChange={handleFileInputChange}
+                                        value={fileInputState}
+                                        className="form-input"
+                                        hidden
+                                    />
+                                </Button>
+                                {previewSource && (
+                                    <div>
+                                        <Box
+                                            sx={{ margin: 1 }}
+                                        >
+                                            <img
+                                                src={previewSource}
+                                                alt="chosen"
+                                                style={{ height: '300px' }}
+                                            />
+                                        </Box>
+                                    </div>
+                                )}
                             </Grid>
-                            <input
-                                id="fileInput"
-                                type="file"
-                                name="image"
-                                onChange={handleFileInputChange}
-                                value={fileInputState}
-                                className="form-input"
-                            />
-                            {previewSource && (
-                                <img
-                                    src={previewSource}
-                                    alt="chosen"
-                                    style={{ height: '300px' }}
-                                />
-                            )}
                         </Grid>
 
                         <Button

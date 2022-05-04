@@ -1,3 +1,9 @@
-.img-profile{
+.img-profile {
     display: hidden;
+}
+
+.center-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
