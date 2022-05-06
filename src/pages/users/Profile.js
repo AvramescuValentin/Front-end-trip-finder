@@ -19,6 +19,7 @@ import { AuthContext } from "../../util/auth-context";
 
 import "./../../style/images.css";
 import { reduce_image_file_size } from "./../../util/compressImage";
+import Copyright from "../../components/Copyright";
 
 
 const GetProfilePictureSize = () => {
@@ -357,6 +358,7 @@ const Profile = () => {
                 </Grid>
                 <Grid item xs={2}></Grid>
             </Grid>
+            <Copyright />
         </Container>
     )
 }

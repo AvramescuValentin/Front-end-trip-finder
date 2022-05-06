@@ -31,23 +31,8 @@ import { useHttpClient } from './../../util/http-hook';
 import { makeRequest } from '../../util/requests';
 import UploadImage from '../../components/UploadImage';
 import { reduce_image_file_size } from "./../../util/compressImage";
+import Copyright from '../../components/Copyright';
 
-
-
-
-
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
 
 const theme = createTheme();
 
@@ -89,25 +74,6 @@ export default function SignUp() {
         const arrayOfTags = tags.replace(/ /g, '').split('#');
         arrayOfTags.shift();
         return arrayOfTags;
-    }
-
-    const getImage = async () => {
-        if (!selectedFile) return null;
-        else {
-            const reader = new FileReader();
-            await reader.readAsDataURL(selectedFile);
-            reader.onloadend = async () => {
-                console.log(reader.result)
-                // JSON.stringify(reader.result);
-                console.log("return");
-                const image = await JSON.stringify({ data: reader.result })
-                return image;
-            };
-            reader.onerror = () => {
-                console.error('AHHHHHHHH!!');
-                setErrMsg('something went wrong!');
-            };
-        }
     }
 
     const addImage = (registrationData) => {
@@ -365,7 +331,7 @@ export default function SignUp() {
                     </Grid>
 
                 </Box>
-                <Copyright sx={{ mt: 5 }} />
+                <Copyright />
             </Container>
         </ThemeProvider>
     );
