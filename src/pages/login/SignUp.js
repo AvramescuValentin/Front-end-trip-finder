@@ -77,17 +77,21 @@ export default function SignUp() {
     }
 
     const addImage = (registrationData) => {
-        if (!selectedFile) return;
-        const reader = new FileReader();
-        reader.readAsDataURL(selectedFile);
-        reader.onloadend = () => {
-            registrationData.image = reader.result;
+        if (!selectedFile) {
             registerUser(registrationData);
-        };
-        reader.onerror = () => {
-            console.error('AHHHHHHHH!!');
-            setErrMsg('something went wrong!');
-        };
+        }
+        else {
+            const reader = new FileReader();
+            reader.readAsDataURL(selectedFile);
+            reader.onloadend = () => {
+                registrationData.image = reader.result;
+                registerUser(registrationData);
+            };
+            reader.onerror = () => {
+                console.error('AHHHHHHHH!!');
+                setErrMsg('something went wrong!');
+            };
+        }
     }
 
     const registerUser = async (registrationData) => {

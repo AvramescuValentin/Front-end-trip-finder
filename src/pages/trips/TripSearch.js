@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useContext } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -18,93 +18,59 @@ import './../../style/Style.css'
 import Copyright from '../../components/Copyright';
 import FloatingButton from '../../components/FloatingButton';
 import { ClassNames } from '@emotion/react';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+
+import { useHttpClient } from './../../util/http-hook';
+import { AuthContext } from "../../util/auth-context";
 
 const theme = createTheme();
 
-const mockData = [{
-    "id": 1,
-    "title": "Paris",
-    "startDate": "2022-02-10T05:20:52.155Z",
-    "endDate": "2022-02-17T05:20:52.155Z",
-    "image": "https://s.iw.ro/gateway/g/ZmlsZVNvdXJjZT1odHRwJTNBJTJGJTJG/c3RvcmFnZTA3dHJhbnNjb2Rlci5yY3Mt/cmRzLnJvJTJGc3RvcmFnZSUyRjIwMTkl/MkYwNCUyRjA4JTJGMTA2MTYxOF8xMDYx/NjE4X3NodXR0ZXJzdG9ja183NzI3Njky/NjMuanBnJnc9NzgwJmg9NDQwJmhhc2g9/Y2ZkNzVlOTMzNGYwMTIyMGZlZGMxMjAzNDkzZGEwM2E=.thumb.jpg",
-    "location": "France, Paris",
-    "description": "Aici avem o descriere basic sa vedem cum merg lucrurile idk."
-},
-{
-    "id": 2,
-    "title": "Paris",
-    "startDate": "2022-02-10T05:20:52.155Z",
-    "endDate": "2022-02-17T05:20:52.155Z",
-    "image": "https://s.iw.ro/gateway/g/ZmlsZVNvdXJjZT1odHRwJTNBJTJGJTJG/c3RvcmFnZTA3dHJhbnNjb2Rlci5yY3Mt/cmRzLnJvJTJGc3RvcmFnZSUyRjIwMTkl/MkYwNCUyRjA4JTJGMTA2MTYxOF8xMDYx/NjE4X3NodXR0ZXJzdG9ja183NzI3Njky/NjMuanBnJnc9NzgwJmg9NDQwJmhhc2g9/Y2ZkNzVlOTMzNGYwMTIyMGZlZGMxMjAzNDkzZGEwM2E=.thumb.jpg",
-    "location": "France, Paris",
-    "description": "Aici avem o descriere basic sa vedem cum merg lucrurile idk."
-},
-{
-    "id": 3,
-    "title": "Paris",
-    "startDate": "2022-02-10T05:20:52.155Z",
-    "endDate": "2022-02-17T05:20:52.155Z",
-    "image": "https://s.iw.ro/gateway/g/ZmlsZVNvdXJjZT1odHRwJTNBJTJGJTJG/c3RvcmFnZTA3dHJhbnNjb2Rlci5yY3Mt/cmRzLnJvJTJGc3RvcmFnZSUyRjIwMTkl/MkYwNCUyRjA4JTJGMTA2MTYxOF8xMDYx/NjE4X3NodXR0ZXJzdG9ja183NzI3Njky/NjMuanBnJnc9NzgwJmg9NDQwJmhhc2g9/Y2ZkNzVlOTMzNGYwMTIyMGZlZGMxMjAzNDkzZGEwM2E=.thumb.jpg",
-    "location": "France, Paris",
-    "description": "Aici avem o descriere basic sa vedem cum merg lucrurile idk."
-},
-{
-    "id": 4,
-    "title": "Paris",
-    "startDate": "2022-02-10T05:20:52.155Z",
-    "endDate": "2022-02-17T05:20:52.155Z",
-    "image": "https://s.iw.ro/gateway/g/ZmlsZVNvdXJjZT1odHRwJTNBJTJGJTJG/c3RvcmFnZTA3dHJhbnNjb2Rlci5yY3Mt/cmRzLnJvJTJGc3RvcmFnZSUyRjIwMTkl/MkYwNCUyRjA4JTJGMTA2MTYxOF8xMDYx/NjE4X3NodXR0ZXJzdG9ja183NzI3Njky/NjMuanBnJnc9NzgwJmg9NDQwJmhhc2g9/Y2ZkNzVlOTMzNGYwMTIyMGZlZGMxMjAzNDkzZGEwM2E=.thumb.jpg",
-    "location": "France, Paris",
-    "description": "Aici avem o descriere basic sa vedem cum merg lucrurile idk."
-},
-{
-    "id": 5,
-    "title": "Paris",
-    "startDate": "2022-02-10T05:20:52.155Z",
-    "endDate": "2022-02-17T05:20:52.155Z",
-    "image": "https://s.iw.ro/gateway/g/ZmlsZVNvdXJjZT1odHRwJTNBJTJGJTJG/c3RvcmFnZTA3dHJhbnNjb2Rlci5yY3Mt/cmRzLnJvJTJGc3RvcmFnZSUyRjIwMTkl/MkYwNCUyRjA4JTJGMTA2MTYxOF8xMDYx/NjE4X3NodXR0ZXJzdG9ja183NzI3Njky/NjMuanBnJnc9NzgwJmg9NDQwJmhhc2g9/Y2ZkNzVlOTMzNGYwMTIyMGZlZGMxMjAzNDkzZGEwM2E=.thumb.jpg",
-    "location": "France, Paris",
-    "description": "Aici avem o descriere basic sa vedem cum merg lucrurile idk."
-},
-{
-    "id": 6,
-    "title": "Paris",
-    "startDate": "2022-02-10T05:20:52.155Z",
-    "endDate": "2022-02-17T05:20:52.155Z",
-    "image": "https://s.iw.ro/gateway/g/ZmlsZVNvdXJjZT1odHRwJTNBJTJGJTJG/c3RvcmFnZTA3dHJhbnNjb2Rlci5yY3Mt/cmRzLnJvJTJGc3RvcmFnZSUyRjIwMTkl/MkYwNCUyRjA4JTJGMTA2MTYxOF8xMDYx/NjE4X3NodXR0ZXJzdG9ja183NzI3Njky/NjMuanBnJnc9NzgwJmg9NDQwJmhhc2g9/Y2ZkNzVlOTMzNGYwMTIyMGZlZGMxMjAzNDkzZGEwM2E=.thumb.jpg",
-    "location": "France, Paris",
-    "description": "Aici avem o descriere basic sa vedem cum merg lucrurile idk."
-},
-{
-    "id": 7,
-    "title": "Paris",
-    "startDate": "2022-02-10T05:20:52.155Z",
-    "endDate": "2022-02-17T05:20:52.155Z",
-    "image": "https://s.iw.ro/gateway/g/ZmlsZVNvdXJjZT1odHRwJTNBJTJGJTJG/c3RvcmFnZTA3dHJhbnNjb2Rlci5yY3Mt/cmRzLnJvJTJGc3RvcmFnZSUyRjIwMTkl/MkYwNCUyRjA4JTJGMTA2MTYxOF8xMDYx/NjE4X3NodXR0ZXJzdG9ja183NzI3Njky/NjMuanBnJnc9NzgwJmg9NDQwJmhhc2g9/Y2ZkNzVlOTMzNGYwMTIyMGZlZGMxMjAzNDkzZGEwM2E=.thumb.jpg",
-    "location": "France, Paris",
-    "description": "Aici avem o descriere basic sa vedem cum merg lucrurile idk."
-}]
-
 export default function TripSearch() {
+    const auth = useContext(AuthContext);
+    const { isLoading, error, sendRequest, clearError } = useHttpClient();
+    const [groups, setGroups] = useState([]);
 
-
+    React.useEffect(() => {
+        const fetchGroups = async () => {
+            try {
+                const responseData = await sendRequest(
+                    `http://localhost:5000/api/group/newsFeed`,
+                    'GET',
+                    null,
+                    {
+                        Authorization: 'Bearer ' + auth.token
+                    }
+                );
+                setGroups(responseData.groups);
+            } catch (err) { }
+        };
+        fetchGroups();
+    }, [sendRequest]);
 
     return (
         <ThemeProvider theme={theme}>
             <Container component="main">
+                <Backdrop
+                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                    open={isLoading}
+
+                >
+                    <CircularProgress color="inherit" />
+                </Backdrop>
                 <Grid container spacing={3}>
                     <Grid xs={3}></Grid>
                     <SearchBar />
                     <Grid xs={3}></Grid>
-                    {mockData.map(card => {
+                    {groups.map(card => {
                         return (
                             <Grid item xs={12} sm={6} md={6} lg={4} xl={4}>
                                 <TripCards
                                     key={card.id}
                                     title={card.title}
-                                    startDate={card.startDate}
-                                    endDate={card.endDate}
-                                    image={card.image}
+                                    startDate={card.tripDateStart}
+                                    endDate={card.tripDateEnd}
+                                    image={card.imageUrl}
                                     location={card.location}
                                     description={card.description}
                                 />

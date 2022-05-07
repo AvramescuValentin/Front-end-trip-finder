@@ -145,7 +145,7 @@ export default function Navbar(props) {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        Mini variant drawer
+                        TripFinder
                     </Typography>
                 </Toolbar>
             </AppBar>

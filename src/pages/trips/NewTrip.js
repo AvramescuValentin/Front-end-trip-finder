@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useHistory } from 'react-router-dom';
 
 import Backdrop from '@mui/material/Backdrop';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -39,6 +39,7 @@ const theme = createTheme();
 const NewTrip = () => {
     const auth = useContext(AuthContext);
     const { isLoading, error, sendRequest, clearError } = useHttpClient();
+    let history = useHistory();
 
     const [valueTimeStart, setValueTimeStart] = React.useState(new Date('2014-08-18T21:11:54'));
     const [valueTimeEnd, setValueTimeEnd] = React.useState(new Date('2014-08-25T21:11:54'));
@@ -82,22 +83,27 @@ const NewTrip = () => {
     }
 
     const addImage = (registrationData) => {
-        if (!selectedFile) return;
-        const reader = new FileReader();
-        reader.readAsDataURL(selectedFile);
-        reader.onloadend = () => {
-            registrationData.image = reader.result;
-            registerUser(registrationData);
-        };
-        reader.onerror = () => {
-            console.error('AHHHHHHHH!!');
-            setErrMsg('something went wrong!');
-        };
+        if (!selectedFile) {
+            registerGroup(registrationData);
+        }
+        else {
+            const reader = new FileReader();
+            reader.readAsDataURL(selectedFile);
+            reader.onloadend = () => {
+                registrationData.image = reader.result;
+                registerGroup(registrationData);
+            };
+            reader.onerror = () => {
+                console.error('AHHHHHHHH!!');
+                setErrMsg('something went wrong!');
+            };
+        }
     }
 
-    const registerUser = async (registrationData) => {
-        console.log(registrationData.image)
-        const resizedImage = await reduce_image_file_size(registrationData.image);
+    const registerGroup = async (registrationData) => {
+        let resizedImage;
+        if (registrationData.image)
+            resizedImage = await reduce_image_file_size(registrationData.image);
         registrationData.image = resizedImage;
         console.log(registrationData.image)
         try {
@@ -110,7 +116,7 @@ const NewTrip = () => {
                     Authorization: 'Bearer ' + auth.token
                 }
             );
-            auth.login(responseData.userId, responseData.token);
+            history.push('/myTrips');
         } catch (err) { }
     }
 

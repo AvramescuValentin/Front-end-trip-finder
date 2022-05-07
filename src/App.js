@@ -11,6 +11,7 @@ import NewTrip from './pages/trips/NewTrip';
 import Copyright from './components/Copyright';
 import { AuthContext } from './util/auth-context';
 import { useAuth } from './util/auth-hook';
+import AddTrip from './pages/trips/AddTrip';
 
 
 const App = () => {
@@ -35,7 +36,7 @@ const App = () => {
             <TripSearch />
           </Route>
           <Route path='/newTrip' exact>
-            <NewTrip />
+            <AddTrip />
           </Route>
           <Redirect to='/tripSearch' />
         </Switch>
