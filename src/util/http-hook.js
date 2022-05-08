@@ -1,5 +1,11 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 
+// `https://trip-finderx.herokuapp.com/api`
+// http://localhost:5000/api
+
+const preUrl = "https://trip-finderx.herokuapp.com/api"
+
+
 export const useHttpClient = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
@@ -13,7 +19,7 @@ export const useHttpClient = () => {
       activeHttpRequests.current.push(httpAbortCtrl);
 
       try {
-        const response = await fetch(url, {
+        const response = await fetch(`${preUrl}/${url}`, {
           method,
           body,
           headers,

@@ -108,7 +108,7 @@ const NewTrip = () => {
         console.log(registrationData.image)
         try {
             const responseData = await sendRequest(
-                'http://localhost:5000/api/group/',
+                'group/',
                 'POST',
                 JSON.stringify(registrationData),
                 {

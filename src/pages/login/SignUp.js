@@ -95,13 +95,13 @@ export default function SignUp() {
     }
 
     const registerUser = async (registrationData) => {
-        console.log(registrationData.image)
-        const resizedImage = await reduce_image_file_size(registrationData.image);
-        registrationData.image = resizedImage;
-        console.log(registrationData.image)
+        if (registrationData.image) {
+            const resizedImage = await reduce_image_file_size(registrationData.image);
+            registrationData.image = resizedImage;
+        }
         try {
             const responseData = await sendRequest(
-                'http://localhost:5000/api/user/signup',
+                'user/signup',
                 'POST',
                 JSON.stringify(registrationData),
                 {

@@ -61,7 +61,7 @@ const Profile = () => {
         const fetchUsers = async () => {
             try {
                 const responseData = await sendRequest(
-                    'http://localhost:5000/api/user/profile',
+                    'user/profile',
                     'GET',
                     null,
                     {
@@ -117,7 +117,7 @@ const Profile = () => {
         }
         try {
             const responseData = await sendRequest(
-                'http://localhost:5000/api/user/profile',
+                'user/profile',
                 'PATCH',
                 JSON.stringify(registrationData),
                 {

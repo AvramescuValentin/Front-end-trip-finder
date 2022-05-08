@@ -38,7 +38,7 @@ const MyTrips = () => {
         const fetchGroups = async () => {
             try {
                 const responseData = await sendRequest(
-                    `http://localhost:5000/api/group/user/${auth.userId}`,
+                    `group/user/${auth.userId}`,
                     'GET',
                     null,
                     {
@@ -70,12 +70,15 @@ const MyTrips = () => {
                             <Grid item xs={12} sm={6} md={6} lg={4} xl={4}>
                                 <TripCards
                                     key={card.id}
+                                    id={card.id}
                                     title={card.title}
                                     startDate={card.tripDateStart}
                                     endDate={card.tripDateEnd}
                                     image={card.imageUrl}
                                     location={card.location}
                                     description={card.description}
+                                    creator={card.creator}
+                                    type={"groupMember"}
                                 />
                             </Grid>
                         )

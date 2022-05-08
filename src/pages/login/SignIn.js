@@ -37,7 +37,7 @@ export default function SignIn() {
         }
         try {
             const responseData = await sendRequest(
-                'http://localhost:5000/api/user/login',
+                'user/login',
                 'POST',
                 JSON.stringify(loginData),
                 {

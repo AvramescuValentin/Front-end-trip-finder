@@ -35,7 +35,7 @@ export default function TripSearch() {
         const fetchGroups = async () => {
             try {
                 const responseData = await sendRequest(
-                    `http://localhost:5000/api/group/newsFeed`,
+                    `group/newsFeed`,
                     'GET',
                     null,
                     {
@@ -67,12 +67,15 @@ export default function TripSearch() {
                             <Grid item xs={12} sm={6} md={6} lg={4} xl={4}>
                                 <TripCards
                                     key={card.id}
+                                    id={card.id}
                                     title={card.title}
                                     startDate={card.tripDateStart}
                                     endDate={card.tripDateEnd}
                                     image={card.imageUrl}
                                     location={card.location}
                                     description={card.description}
+                                    creator={card.creator}
+                                    type={"search"}
                                 />
                             </Grid>
                         )

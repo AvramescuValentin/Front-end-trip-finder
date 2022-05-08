@@ -34,19 +34,19 @@ export default function EnterGroup() {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const loginData = {
-            groupId: data.get('groupId'),
+            generatedId: data.get('groupId'),
             password: data.get('password'),
         }
         try {
             const responseData = await sendRequest(
-                'http://localhost:5000/api/',
+                `group/join/${loginData.generatedId}`,
                 'POST',
                 JSON.stringify(loginData),
                 {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + auth.token
                 }
             );
-            auth.login(responseData.userId, responseData.token);
         } catch (err) { }
     };
 
