@@ -56,7 +56,7 @@ const PostSection = (props) => {
                     </CardActionArea>
                 </Card>
             </Container>
-            <FloatingButton className='floating__button' />
+            <FloatingButton className='floating__button' type={'addPost'} />
             <Copyright />
         </div>
     )

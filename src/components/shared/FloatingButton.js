@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import './../../style/Style.css'
+import CustomizedDialog from './CustomizedDialog';
 
 export default function FloatingButton(props) {
     const [floatingButton, setFloatingButton] = useState((<Box></Box>));
@@ -23,7 +24,13 @@ export default function FloatingButton(props) {
                 break;
             }
             case 'addPost': {
-
+                setFloatingButton(
+                    <Box sx={{ '& > :not(style)': { m: 1 } }}>
+                        <Fab id='floating__button' variant="extended" size="large" color="success" aria-label="add">
+                            <AddIcon sx={{ mr: 1 }} />
+                            <CustomizedDialog type={'addPost'} />
+                        </Fab>
+                    </Box >)
                 break;
             }
             default: {

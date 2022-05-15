@@ -14,6 +14,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import './../../style/TripCards.css'
 import { useHttpClient } from './../../util/http-hook';
 import { AuthContext } from "./../../util/auth-context";
+import CustomizedDialog from '../shared/CustomizedDialog';
 
 
 const TripCards = (props) => {
@@ -31,7 +32,8 @@ const TripCards = (props) => {
                     </Button>
 
 
-                    <BasicModal
+                    <CustomizedDialog
+                        type={"readMore"}
                         title={props.title}
                         description={props.description}
                     />
