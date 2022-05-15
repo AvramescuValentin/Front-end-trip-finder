@@ -21,12 +21,12 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import LogoutIcon from '@mui/icons-material/Logout';
 import BookmarksOutlinedIcon from '@mui/icons-material/BookmarksOutlined';
-import { AuthContext } from './../util/auth-context';
+import { AuthContext } from './../../util/auth-context';
 // ICONS 
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
-import './../style/Style.css';
+import './../../style/Style.css';
 
 
 const drawerWidth = 240;

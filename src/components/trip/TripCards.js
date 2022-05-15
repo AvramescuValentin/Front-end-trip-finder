@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, NavLink } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -7,13 +7,13 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CardActionArea from '@mui/material/CardActionArea';
-import BasicModal from './Modal';
+import BasicModal from '../shared/Modal';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import './../style/TripCards.css'
-import { useHttpClient } from './../util/http-hook';
-import { AuthContext } from "./../util/auth-context";
+import './../../style/TripCards.css'
+import { useHttpClient } from './../../util/http-hook';
+import { AuthContext } from "./../../util/auth-context";
 
 
 const TripCards = (props) => {
@@ -41,9 +41,11 @@ const TripCards = (props) => {
         else if (props.type === 'groupMember') {
             setCardButtons(
                 <div className='card_button_container'>
-                    <Button size="small" color="success" variant="outlined" >
-                        Enter
-                    </Button>
+                    <NavLink to={`/groupPage/${props.id}`}>
+                        <Button size="small" color="success" variant="outlined">
+                            Enter
+                        </Button>
+                    </NavLink>
                     <Button size="small" color="error" variant="outlined" onClick={handleLeave}>
                         Leave
                     </Button>
@@ -55,6 +57,7 @@ const TripCards = (props) => {
             )
         }
     });
+
 
     const handleLeave = async (event) => {
         event.preventDefault();

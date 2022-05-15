@@ -19,7 +19,7 @@ import { AuthContext } from "../../util/auth-context";
 
 import "./../../style/images.css";
 import { reduce_image_file_size } from "./../../util/compressImage";
-import Copyright from "../../components/Copyright";
+import Copyright from "../../components/shared/Copyright";
 
 
 const GetProfilePictureSize = () => {

@@ -1,17 +1,17 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import Profile from './pages/users/Profile';
-import TripPage from './pages/trips/TripPage';
 import SignIn from './pages/login/SignIn';
 import SignUp from './pages/login/SignUp';
 import TripSearch from './pages/trips/TripSearch';
-import Navbar from './components/Navbar';
+import Navbar from './components/shared/Navbar';
 import MyTrips from './pages/trips/MyTrips';
 import NewTrip from './pages/trips/NewTrip';
-import Copyright from './components/Copyright';
+import Copyright from './components/shared/Copyright';
 import { AuthContext } from './util/auth-context';
 import { useAuth } from './util/auth-hook';
 import AddTrip from './pages/trips/AddTrip';
+import GroupPage from './pages/group/GroupPage';
 
 
 const App = () => {
@@ -29,18 +29,21 @@ const App = () => {
           <Route path='/myTrips' exact>
             <MyTrips />
           </Route>
-          <Route path='/tripPage/:id'>
+          {/* <Route path='/tripPage/:id'>
             <TripPage />
-          </Route>
+          </Route> */}
           <Route path='/tripSearch' exact>
             <TripSearch />
           </Route>
           <Route path='/newTrip' exact>
             <AddTrip />
           </Route>
+          <Route path='/groupPage/:groupId'>
+            <GroupPage />
+          </Route>
           <Redirect to='/tripSearch' />
         </Switch>
-      </Navbar>
+      </Navbar >
     )
 
   } else {

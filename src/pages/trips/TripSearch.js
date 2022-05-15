@@ -12,11 +12,11 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import TripCards from '../../components/TripCards';
-import SearchBar from '../../components/SearchBar';
+import TripCards from '../../components/trip/TripCards';
+import SearchBar from '../../components/trip/SearchBar';
 import './../../style/Style.css'
-import Copyright from '../../components/Copyright';
-import FloatingButton from '../../components/FloatingButton';
+import Copyright from '../../components/shared/Copyright';
+import FloatingButton from '../../components/shared/FloatingButton';
 import { ClassNames } from '@emotion/react';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -81,7 +81,12 @@ export default function TripSearch() {
                         )
                     })}
                 </Grid>
-                <FloatingButton className='floating__button' />
+                <FloatingButton
+                    className='floating__button'
+                    key={1}
+                    type={"addTrip"}
+                    path={"/newTrip"}
+                />
             </Container>
         </ThemeProvider >
     );

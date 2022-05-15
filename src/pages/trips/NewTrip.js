@@ -29,9 +29,9 @@ import DateAdapter from '@mui/lab/AdapterMoment';
 import { AuthContext } from './../../util/auth-context';
 import { useHttpClient } from './../../util/http-hook';
 import { makeRequest } from '../../util/requests';
-import UploadImage from '../../components/UploadImage';
+import UploadImage from '../../components/shared/UploadImage';
 import { reduce_image_file_size } from "./../../util/compressImage";
-import Copyright from '../../components/Copyright';
+import Copyright from '../../components/shared/Copyright';
 
 
 const theme = createTheme();

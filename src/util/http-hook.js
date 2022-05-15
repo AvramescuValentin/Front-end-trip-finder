@@ -3,7 +3,7 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 // `https://trip-finderx.herokuapp.com/api`
 // http://localhost:5000/api
 
-const preUrl = "https://trip-finderx.herokuapp.com/api"
+const preUrl = "http://localhost:5000/api"
 
 
 export const useHttpClient = () => {

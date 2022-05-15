@@ -22,7 +22,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 import { AuthContext } from './../../util/auth-context';
 import { useHttpClient } from './../../util/http-hook';
-import Copyright from '../../components/Copyright';
+import Copyright from '../../components/shared/Copyright';
 
 const theme = createTheme();
 

@@ -4,8 +4,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import NewTrip from './NewTrip';
-import EnterGroup from './EnterGroup';
+import PostSection from './PostSection';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -40,7 +39,7 @@ function a11yProps(index) {
     };
 }
 
-export default function AddTrip() {
+export default function GroupPage() {
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
@@ -50,17 +49,26 @@ export default function AddTrip() {
     return (
         <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered variant="scrollable" scrollButtons="auto">
-                    <Tab label="Create a new trip" {...a11yProps(0)} />
-                    <Tab label="Enter in a existing trip" {...a11yProps(1)} />
+                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" variant="scrollable" scrollButtons="auto">
+                    <Tab label="Your Posts" {...a11yProps(0)} />
+                    <Tab label="Our Recomandations" {...a11yProps(1)} />
+                    <Tab label="Chat" {...a11yProps(2)} />
+                    <Tab label="Settings" {...a11yProps(3)} />
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
-                <NewTrip />
+                <PostSection />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <EnterGroup />
+                {/* <EnterGroup /> */}
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+                {/* <EnterGroup /> */}
+            </TabPanel>
+            <TabPanel value={value} index={3}>
+                {/* <EnterGroup /> */}
             </TabPanel>
         </Box>
     );
 }
+// 
