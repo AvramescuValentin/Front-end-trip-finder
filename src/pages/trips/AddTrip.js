@@ -50,7 +50,7 @@ export default function AddTrip() {
     return (
         <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered variant="scrollable" scrollButtons="auto">
+                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" variant="scrollable" scrollButtons="auto">
                     <Tab label="Create a new trip" {...a11yProps(0)} />
                     <Tab label="Enter in a existing trip" {...a11yProps(1)} />
                 </Tabs>

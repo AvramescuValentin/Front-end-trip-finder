@@ -58,7 +58,7 @@ const TripCards = (props) => {
                 </div>
             )
         }
-    });
+    }, []);
 
 
     const handleLeave = async (event) => {

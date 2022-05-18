@@ -28,7 +28,7 @@ export default function FloatingButton(props) {
                     <Box sx={{ '& > :not(style)': { m: 1 } }}>
                         <Fab id='floating__button' variant="extended" size="large" color="success" aria-label="add">
                             <AddIcon sx={{ mr: 1 }} />
-                            <CustomizedDialog type={'addPost'} />
+                            <CustomizedDialog type={'addPost'} groupId={props.groupId} />
                         </Fab>
                     </Box >)
                 break;
@@ -42,7 +42,7 @@ export default function FloatingButton(props) {
                 </Box >);
             }
         }
-    })
+    }, [])
 
 
 

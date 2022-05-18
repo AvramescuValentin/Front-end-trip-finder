@@ -84,7 +84,12 @@ const MyTrips = () => {
                         )
                     })}
                 </Grid>
-                <FloatingButton className='floating__button' />
+                <FloatingButton
+                    className='floating__button'
+                    key={1}
+                    type={"addTrip"}
+                    path={"/newTrip"}
+                />
             </Container>
         </ThemeProvider >
     );
