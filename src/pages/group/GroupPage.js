@@ -5,6 +5,7 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import PostSection from './PostSection';
+import Messenger from '../messenger/Messenger';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -51,22 +52,10 @@ export default function GroupPage() {
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" variant="scrollable" scrollButtons="auto">
                     <Tab label="Your Posts" {...a11yProps(0)} />
-                    <Tab label="Our Recomandations" {...a11yProps(1)} />
-                    <Tab label="Chat" {...a11yProps(2)} />
-                    <Tab label="Settings" {...a11yProps(3)} />
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
                 <PostSection />
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-                {/* <EnterGroup /> */}
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-                {/* <EnterGroup /> */}
-            </TabPanel>
-            <TabPanel value={value} index={3}>
-                {/* <EnterGroup /> */}
             </TabPanel>
         </Box>
     );

@@ -23,9 +23,6 @@ import Copyright from "../../components/shared/Copyright";
 
 
 const GetProfilePictureSize = () => {
-    // const w = window.innerWidth;
-    // console.log(w);
-    // return 200;
     const [size, setSize] = useState([0, 0]);
     useLayoutEffect(() => {
         function updateSize() {

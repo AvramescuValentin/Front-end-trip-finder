@@ -62,9 +62,7 @@ const MyTrips = () => {
                     <CircularProgress color="inherit" />
                 </Backdrop>
                 <Grid container spacing={3}>
-                    <Grid xs={3}></Grid>
-                    <SearchBar />
-                    <Grid xs={3}></Grid>
+
                     {groups.map(card => {
                         return (
                             <Grid item xs={12} sm={6} md={6} lg={4} xl={4}>

@@ -10,7 +10,7 @@ const Post = (props) => {
                         {props.title}
                     </Typography>
                     <Typography variant="caption" gutterBottom color="text.secondary">
-                        by <b>{props.author}</b> <br /> at <b>{props.timeStamp}</b>
+                        by <b>{props.author}</b> <br /> at <b>{new Date(props.timeStamp).toString()}</b>
                     </Typography>
                     <Typography variant="body1" color="text.primary">
                         {props.description}
