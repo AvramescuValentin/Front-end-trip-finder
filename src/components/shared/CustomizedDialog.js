@@ -27,16 +27,6 @@ export default function CustomizedDialog(props) {
         setOpen(false);
     };
 
-    // const handelChangeDescription = (event) => {
-    //     event.preventDefault();
-    //     setDescription(event.value);
-    // }
-
-    // const handelChangeTitle = (event) => {
-    //     event.preventDefault();
-    //     setTitle(event.value);
-    // }
-
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log(title, description);
@@ -55,6 +45,8 @@ export default function CustomizedDialog(props) {
                     Authorization: 'Bearer ' + auth.token
                 }
             );
+            handleClose();
+            window.location.reload(false);
         } catch (err) { }
     }
 
@@ -126,32 +118,5 @@ export default function CustomizedDialog(props) {
         <div>
             {dialog}
         </div>
-        // <div>
-        //     <Button variant="outlined" onClick={handleClickOpen}>
-        //         Open form dialog
-        //     </Button>
-        //     <Dialog open={open} onClose={handleClose}>
-        //         <DialogTitle>Subscribe</DialogTitle>
-        //         <DialogContent>
-        //             <DialogContentText>
-        //                 To subscribe to this website, please enter your email address here. We
-        //                 will send updates occasionally.
-        //             </DialogContentText>
-        //             <TextField
-        //                 autoFocus
-        //                 margin="dense"
-        //                 id="name"
-        //                 label="Email Address"
-        //                 type="email"
-        //                 fullWidth
-        //                 variant="standard"
-        //             />
-        //         </DialogContent>
-        //         <DialogActions>
-        //             <Button onClick={handleClose}>Cancel</Button>
-        //             <Button onClick={handleClose}>Subscribe</Button>
-        //         </DialogActions>
-        //     </Dialog>
-        // </div>
     );
 }
