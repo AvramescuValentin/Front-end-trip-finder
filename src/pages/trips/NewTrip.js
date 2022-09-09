@@ -41,8 +41,8 @@ const NewTrip = () => {
     const { isLoading, error, sendRequest, clearError } = useHttpClient();
     let history = useHistory();
 
-    const [valueTimeStart, setValueTimeStart] = React.useState(new Date('2014-08-18T21:11:54'));
-    const [valueTimeEnd, setValueTimeEnd] = React.useState(new Date('2014-08-25T21:11:54'));
+    const [valueTimeStart, setValueTimeStart] = React.useState(new Date());
+    const [valueTimeEnd, setValueTimeEnd] = React.useState(new Date());
     const [privateTrip, setPrivateTrip] = React.useState('no');
     const [fileInputState, setFileInputState] = useState('');
     const [previewSource, setPreviewSource] = useState('');
